@@ -90,34 +90,29 @@
                 console.log(day)
                 if (getDate(day[0]) >= startDate && getDate(day[0]) <= endDate) {
                     console.log("Processing day: " + date);
-                    if (false) {//(!regDays.includes(day[1])) {
-                        //ignore for now -- special days 8/1/25
-                        //handle special days
-                        //bellsData.filter((bell) => {
-                         //   return (bell[0] == day[2]) && (bell[1] == day[1])
-                        //}).forEach((period) => {
-                         //   if (document.getElementById("period" + period[2]).value.length > 0) {
-                         //       exportText += `${document.getElementById("period" + period[2]).value},${day[0]},${period[3]},${day[0]},${period[4]}\r\n`
-                         //   }
-                        //})
-                    } else {
-                        bellsData.filter((bell) => {
-                            return (bell[0] == day[2]) && (bell[1] == day[1])
-                        }).forEach((block) => {
-                            console.log(block)
-                            dayCode = block[0] //ex. 1,2,3,4 type of day ex. early dismissal midterm/final
-                            letterDay = block[1] //ex. A-H
-                            period = block[2] //ex. 1-8
-                            startTime = block[3]
-                            endTime = block[4]
-                            className = document.getElementById("period" + period).value //ex. Chemistry, History
-                            if (className.length > 0) {
-                                if (!regDays.includes(letterDay) || document.getElementById(`${letterDay}-${period}`).checked) {
-                                    exportText += `${className},${date},${startTime},${date},${endTime}\r\n`
-                                }
-                            }
-                        })
+                    if (document.getElementById("advisory").checked) {
+                        if (day[2] == "4") {
+                            //Today is an Advisory Day.
+                            exportText += `Advisory,${date},08:00,${date},08:40\r\n`;
+
+                        }
                     }
+                    bellsData.filter((bell) => {
+                        return (bell[0] == day[2]) && (bell[1] == day[1])
+                    }).forEach((block) => {
+                        console.log(block)
+                        dayCode = block[0] //ex. 1,2,3,4 type of day ex. early dismissal midterm/final
+                        letterDay = block[1] //ex. A-H
+                        period = block[2] //ex. 1-8
+                        startTime = block[3]
+                        endTime = block[4]
+                        className = document.getElementById("period" + period).value //ex. Chemistry, History
+                        if (className.length > 0) {
+                            if (!regDays.includes(letterDay) || document.getElementById(`${letterDay}-${period}`).checked) {
+                                exportText += `${className},${date},${startTime},${date},${endTime}\r\n`
+                            }
+                        }
+                    })
                 }
             });
             let blob = new Blob([exportText], { type: "text/csv" });
@@ -129,12 +124,12 @@
             for (var i = 1; i < calendarAsJSON.length; i++) {
                 var title = calendarAsJSON[i][0];
                 var start_date = calendarAsJSON[i][1];
-                if(calendarAsJSON[i][2].split(":")[0].length == 1) {
+                if (calendarAsJSON[i][2].split(":")[0].length == 1) {
                     calendarAsJSON[i][2] = "0" + calendarAsJSON[i][2] + ":00"; //fix single digit hours
                 }
                 var start_time = calendarAsJSON[i][2];
                 var end_date = calendarAsJSON[i][3];
-                if(calendarAsJSON[i][4].split(":")[0].length == 1) {
+                if (calendarAsJSON[i][4].split(":")[0].length == 1) {
                     calendarAsJSON[i][4] = "0" + calendarAsJSON[i][4] + ":00"; //fix single digit hours
                 }
                 var end_time = calendarAsJSON[i][4];
@@ -168,12 +163,12 @@
         }
     </script>
     <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "ss8i5ja1k5");
-</script>
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "ss8i5ja1k5");
+    </script>
 </head>
 
 <body>
@@ -251,8 +246,8 @@
             <span class="logo"><img src="images/logo.png" width="10%" alt="" /></span>
             <h1>Welcome to the Newtown High School Calendar Generator</h1>
             <p>Maintained by <a href="https://newtownhs.tech">NHS Tech Team</a>
-            <br>
-            Currently Supporting Schedules for the 2025-2026 School Year
+                <br>
+                Currently Supporting Schedules for the 2025-2026 School Year
             </p>
         </header>
 
@@ -331,6 +326,7 @@
                         value="Uncheck All">&nbsp;&nbsp;<input type="button"
                         onclick="SetAllCheckBoxes('schedule', 'day1[]', true);SetAllCheckBoxes('schedule', 'day2[]', true);SetAllCheckBoxes('schedule', 'day3[]', true);SetAllCheckBoxes('schedule', 'day4[]', true);SetAllCheckBoxes('schedule', 'day5[]', true);SetAllCheckBoxes('schedule', 'day6[]', true);SetAllCheckBoxes('schedule', 'day7[]', true);SetAllCheckBoxes('schedule', 'day8[]', true);"
                         value="Check All">&nbsp;&nbsp;
+                    <input type="checkbox" name="advisory" id="advisory"></input><label for="advisory">Advisory</label>
                     </br></br>
                     <input type=button onclick='exportSchedule()' id='submitschedule' name='submitschedule'
                         value='Submit Schedule' tabindex=10 />
