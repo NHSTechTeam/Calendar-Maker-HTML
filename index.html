@@ -67,9 +67,9 @@
                 let periodDiv = document.createElement("div");
                 periodDiv.id = `period${i}container`
                 periodDiv.innerHTML = `<h2><strong>Period ${i} Class:</strong></h2>` +
-                    `<input data-clarity-unmask="true" data-clarity="Period ${i}" type=text name='period${i}' id='period${i}' placeholder="Period ${i} Class" size=25 tabindex=3/></br>`;
+                    `<input data-clarity="Period ${i}" type=text name='period${i}' id='period${i}' placeholder="Period ${i} Class" size=25 tabindex=3/></br>`;
                 regDays.forEach(l => {
-                    periodDiv.innerHTML += `<input data-clarity-unmask="true" data-clarity="Period ${i}-${l}" type="checkbox" id="${l}-${i}" checked name="day${l}[]" value="${l}"> <label for="${l}-${i}">${l}</label>`
+                    periodDiv.innerHTML += `<input data-clarity="Period ${i}-${l}" type="checkbox" id="${l}-${i}" checked name="day${l}[]" value="${l}"> <label for="${l}-${i}">${l}</label>`
                 });
                 //periodDiv.innerHTML += `</br><input type="radio" id="LW1-${i}" checked name="day${i}LW" value="LW1"> <label for="LW-${i}">Wave 1</label>` +
                 //    `<input type="radio" id="LW2-${i}" name="day${i}LW" value="LW2"> <label for="LW2-${i}">Wave 2</label>` +
@@ -173,7 +173,7 @@
 
 <body>
 
-    <div data-clarity-unmask="true" id="wrapper" class="endingpage" hidden>
+    <div id="wrapper" class="endingpage" hidden>
 
         <header id="header" class="alt">
             <h1>Thanks for using the Newtown High School Calendar Generator</h1>
