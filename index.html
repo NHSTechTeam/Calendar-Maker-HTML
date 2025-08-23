@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#3A7BFF">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-icon-72x72.png">
@@ -154,7 +154,8 @@
                 height: "auto",
                 weekends: false,
                 allDaySlot: false,
-                events: json
+                events: json,
+                initialDate: startDate.toISOString().split('T')[0]
             });
             document.querySelector(".beginingpage").hidden = true
             document.querySelector(".endingpage").hidden = false
